@@ -1,32 +1,34 @@
-import { Button, Table, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material'
-import React, { useEffect, useState } from 'react'
+import { Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material'
+import axios from 'axios'
+import React, { useEffect, useState,setmovie } from 'react'
+import Movie from './Movie'
 
 const Movienav = () => {
-
-  var [movie,movie] = useState([])
+var[update,setUpdate]=useState(false)
+var[singlevalue,setSinglevalue]=useState([])
+  var [movie,setmovie] = useState([])
 useEffect(()=>{
-    axios.get("http://localhost:3005/student")
+    axios.get("http://localhost:3000/movie")
     .then(response=>{
         console.log(response.data)
         setmovie(movie=response.data)
     })
     .catch(err=>console.log(err))
 })
+const updatevalue =(value)=>{
+    setSinglevalue(value);
+    setUpdate(true);
+}
 const deletemovie=(id)=>{
     console.log("delete clicked"+id);
-    axios.delete("http://localhost:3005/student/"+id)
+    axios.delete(" http://localhost:3000/movie/"+id)
     .then(response=>{
         alert("deleted")
         window.location.reload(false)
     })
 }
 
-
-
-  return (
-    <div>
-      <Typography>Welcome to my App</Typography>
-    <TableContainer>
+var finalJSX=<TableContainer>
 <Table>
       <TableHead>
         <TableRow>
@@ -39,14 +41,14 @@ const deletemovie=(id)=>{
         </TableRow>
     </TableHead>
     <TableBody>
-        {students.map((value,index)=>{
+        {Movie.map((value,index)=>{
             return<TableRow>
-                <TableCell>{value.Year}</TableCell>
-            <TableCell>{value.Genre}</TableCell>
-            <TableCell>{value.Rating}</TableCell>
-            <TableCell>{value.Director}</TableCell>
-            <TableCell>{value.Producer}</TableCell>
-            <TableCell>{value.Cast}</TableCell>
+                <TableCell>{value.moviename}</TableCell>
+            <TableCell>{value.director}</TableCell>
+            <TableCell>{value.language}</TableCell>
+            <TableCell>{value.genere}</TableCell>
+            <TableCell>{value.releaseyear}</TableCell>
+           
             <TableCell><Button onClick={()=>deletemovie(value.id)}>DELETE</Button></TableCell>
             
             </TableRow>
@@ -57,6 +59,14 @@ const deletemovie=(id)=>{
     </TableBody>
     </Table>
     </TableContainer>
+    if(update)
+    finalJSX =<Movie data={singlevalue} method="put"/>
+  return (
+    <div>
+<br>
+</br>
+<br></br>
+    {finalJSX}
 </div>
   )
 }
