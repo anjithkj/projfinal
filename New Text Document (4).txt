@@ -1,0 +1,193 @@
+import React, { useState } from 'react'
+import Welcome from './Welcome'
+import Login from './Login'
+
+const Connect = () => {
+    const[log,setLog]=useState(false);
+    const logHanlder = (email,password) => {
+      setLog(true)
+    }
+    const outHandler = () => {
+        setLog(false)
+    }
+  return (
+    <div>
+     {log && <Welcome yyy={outHandler}>
+      </Welcome>}
+   {!log &&   <Login xxx={logHanlder}></Login>}
+   
+    </div>
+  )
+}
+
+export default Connect
+
+
+
+
+
+
+
+
+LOGIN
+import { Alert, Button, TextField } from '@mui/material';
+import React, { useState } from 'react'
+
+const Login = (props) => {
+    const [ema, setEma] = useState('');
+    const [pass, setPass] = useState('');
+    const [sub, setSub] = useState(false)
+    const emaHandler = (event) => {
+        setEma(event.target.value);
+    }
+    const passHandler = (event) => {
+        setPass(event.target.value);
+
+    }
+    const SubmitHandler = (event) => {
+        event.preventDefault();
+        if (pass.trim() === ' ' || pass.length <= 8) {
+            setSub(true);
+            return;
+        }else{
+            props.xxx(ema,pass);
+        }
+
+    }
+    
+
+
+    return (
+        <div>
+            <form onSubmit={SubmitHandler}>
+                <TextField id="filled-basic" label="Email" variant="filled" type="email" onChange={emaHandler} />
+                <br></br>
+                <TextField
+                    id="outlined-password-input"
+                    label="Password"
+                    type="password"
+                    autoComplete="current-password"
+                    onChange={passHandler}
+                />
+                <br></br>
+                <br></br>
+                <Button type='submit' variant="contained">Submit</Button><br></br>
+                {sub && <Alert severity="error">Error.....!</Alert>}
+            </form>
+        </div>
+    )
+}
+
+export default Login
+
+
+
+
+Welcome
+import { Alert, Button, TextField } from '@mui/material'
+import React, { useState } from 'react'
+
+const Welcome = (props) => {
+const [name, setName] = useState("");
+const nameHandler = (event) => {
+    setName(event.target.value);
+}
+const[Age, setAge] = useState("");
+const AgeHandler = (event) => {
+    setAge(event.target.value);
+}
+const[Qualify,setQualify] = useState("");
+const  QualifyHandler= (event) => {
+    setQualify(event.target.value); 
+}
+const[Address,setAddress] = useState("");
+const  AddressHandler= (event) => {
+    setAddress(event.target.value); 
+}
+const print =  {
+    Name:name,
+    Age:Age,
+    Qualification:Qualify,
+    Address:Address
+}
+const[err,SetErr]=useState(false);
+const Fprint = (event) => {
+    event.preventDefault();
+    if(name.trim() ==='' || Age.trim() ==='' || Qualify.trim() ==='' || Address.trim() ==='' ){
+        SetErr(true);
+        return;
+    }else{
+        SetErr(false); 
+        console.log(print);
+    }
+   
+}
+const LogoutHandler = () => {
+    props.yyy(true)
+}
+  return (
+    <div>
+        <form>
+      <TextField
+  helperText="Please enter your name"
+  id="demo-helper-text-misaligned"
+  label="Name"
+  onChange={nameHandler}
+/><br></br>
+<TextField
+  helperText=""
+  id="demo-helper-text-misaligned"
+  label="Age"
+  type="number"
+  onChange={AgeHandler}
+/><br></br><br></br>
+<TextField
+  helperText="Please enter your Qualification"
+  id="demo-helper-text-misaligned"
+  label="Qualification"
+  onChange={QualifyHandler}
+/><br></br><br></br>
+<TextField
+          id="outlined-multiline-static"
+          label="Address"
+          multiline
+          rows={4}
+          onChange={AddressHandler}
+        /><br></br><br></br>
+        <Button variant="contained" type='Submit' onClick={Fprint}>Save</Button>
+        {err && <Alert severity="error">Error.....!</Alert>}
+        <Button variant="outlined" color="error" onClick={LogoutHandler}>Logout</Button>
+        </form>
+
+
+    </div>
+  )
+}
+
+export default Welcome
+
+
+Firebase++++-
+// Import the functions you need from the SDKs you need
+import {getDatabase} from "firebase/database";
+import { initializeApp } from "firebase/app";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyDcNzPTdgxTG2xrcKhrTXWLrUqqYOdragc",
+  authDomain: "deepak-4b8a7.firebaseapp.com",
+  databaseURL: "https://deepak-4b8a7-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "deepak-4b8a7",
+  storageBucket: "deepak-4b8a7.appspot.com",
+  messagingSenderId: "129448824514",
+  appId: "1:129448824514:web:48be1d6a7891f78e84355b"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+
+export const db =getDatabase(app)
+
+
