@@ -1,0 +1,19 @@
+.tt
+{
+    text-align: center;
+color:cadetblue;
+background-color: rgb(185, 205, 209);
+}
+.cs
+{
+    color: rgb(0, 0, 0);
+}
+.ts
+{
+    text-align: center;
+}
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
