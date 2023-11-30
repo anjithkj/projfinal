@@ -1,65 +1,55 @@
-// import React, { useState } from 'react'
-// import'../Components/Product.css'
-// const Login = () => {
+import React, { useState } from 'react'
+import './Login.css'
+import { useNavigate } from 'react-router-dom'
+const Login = () => {
+  const [un,setUn]=useState('')
+  const [pwd,setPwd]=useState('')
+const[error,setError]=useState(false)
+const navigate=useNavigate();
 
-//     const [ema,setema]=useState("");
-//     const [pass,setpass]=useState("");
-//     const [error,setError]=useState("");
 
-//     const readema=(event) =>{
-//         event.preventDefault();
-//         setema(event.target.value)
-//         console.log(ema);
-//     }
+  const  readusername = (event) =>{
+    event.preventDefault();
+   setUn(event.target.value);
+console.log(un);
+  }
 
-//     const readpass=(event) =>{
-//         event.preventDefault();
-//         setpass(event.target.value)
-//         console.log(pass);
-//     }
-//     const readloki =(event) => {
-//         event.preventDefault();
-//         if(ema.trim () ==='' || pass === '' )
-//         {
-//             setError(true);
-//             return;
-//         } 
-//         else
-//         {
-//             setError(false);
-//         }
-//         const readdata=(event)=>{
-//             event.preventDefault();
-//             const myobj ={
-//                 email:ema,
-//                 password:pass
-//             }
+  const  readpassword = (event) =>{
+    event.preventDefault();
+   setPwd(event.target.value);
+   console.log(pwd);
+
+  }
+  const savedata = (event)=>{
+event.preventDefault();
+if (un.trim()==='' ||pwd.trim() ==='')
+{
+setError(true)
+return
+}
+else
+{
+setError(false)
+navigate('/home')
+
+
+}
+  }
+  
+  
+  
+    return (
+    <div>
+      <h1 className='cn'>SIGN IN</h1>
+      <p className='co'>
+      Username <input type='text' onChange={readusername} /><br></br>
+      Password <input type='password' onChange={readpassword} /><br></br>
+      <button type='submit' onClick={savedata}>Login</button>
      
-// console.log(myobj)
-//         }
-       
-        
-//     }
-   
+      </p>
+      <p className='er'>{error && 'All fields must be entered'}</p>
+    </div>
+  )
+}
 
-
-//   return (
-//     <div>
-//         <form>
-
-       
-//        email :< input type="text" className="inp" onChange={readema}/><br/>
-//         <br/>
-        
-//         password<input type="passwprd" className="a" onChange={readpass}/><br/><br/>
-       
-//         <a href="/Home">
-//         <button type="submit" className="button" onClick={readloki}>Login </button>
-//         &nbsp;&nbsp;</a>
-//         <button type="submit"  >Signup</button>
-//         <br/></form>
-//     </div> 
-//   )
-// }
-
-// export default Login
+export default Login

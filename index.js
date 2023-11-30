@@ -1,29 +1,17 @@
-const express =require("express");
-const cors=require("cors");
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import './index.css';
+import App from './App';
+import reportWebVitals from './reportWebVitals';
 
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);
 
-const studmodel = require("./Model/student");
-
-const app=new express();
-
-app.use(express.urlencoded({extended:true}))
-app.use(express.json());
-app.use(cors());
-
-app.listen(3005,(request,response)=>{
-    console.log("port is running in 3005")
-})
-
-app.get('/',(request,response)=>{
-    response.send("hi database")
-})
-
-//for saving student data
-
-app.post('/snew',(request,response)=>{
-new studmodel(request.body).save();
-response.send("record saved")
-})
-
-
-
+// If you want to start measuring performance in your app, pass a function
+// to log results (for example: reportWebVitals(console.log))
+// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+reportWebVitals();
